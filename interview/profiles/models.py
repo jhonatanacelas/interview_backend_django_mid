@@ -45,8 +45,5 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
     def get_username(self):
         return self.email
 
-    def is_authenticated(self):
-        return True
-
     def __str__(self):
         return self.email

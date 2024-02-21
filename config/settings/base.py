@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'interview.core',
     'interview.inventory',
     'interview.order',
-    'interview.profiles',
+    'interview.profiles.apps.ProfilesConfig',
 ]
 
 MIDDLEWARE = [
