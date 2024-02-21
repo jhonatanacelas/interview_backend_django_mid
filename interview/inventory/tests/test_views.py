@@ -56,9 +56,6 @@ class InventoryAfterDateTests(TestCase):
             reverse("inventory-after-date"), {"date": self.date.strftime("%Y-%m-%d")}
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        import pdb
-
-        pdb.set_trace()
         self.assertEqual(
             len(response.data), 1
         )  # Only the "Item After" should be returned
