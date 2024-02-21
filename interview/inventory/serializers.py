@@ -33,3 +33,14 @@ class InventorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Inventory
         fields = ['id', 'name', 'type', 'language', 'tags', 'metadata']
+
+class InventoryDateCreatedSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Inventory
+        fields = ["id", "name", "type", "language", "tags", "metadata", "created_at"]
+
+
+class DateSerializer(serializers.Serializer):
+    date = serializers.DateField(format="%Y-%m-%d", input_formats=["%Y-%m-%d"])
+

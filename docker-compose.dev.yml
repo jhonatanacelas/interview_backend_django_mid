@@ -1,16 +1,25 @@
 version: '3.8'
 
 services:
- db:
-  image: postgres:latest
-  ports: 
-  - 5444:5432
-  environment:
-   - POSTGRES_USER=docker
-   - POSTGRES_PASSWORD=docker
-   - POSTGRES_DB=tmt_interview
-  volumes:
-  - pgdata:/var/lib/postgresql/data
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+  db:
+    image: postgres:latest
+    ports:
+      - 5444:5432
+    environment:
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=docker
+      - POSTGRES_DB=tmt_interview
+    volumes:
+      - pgdata:/var/lib/postgresql/data
 
 volumes:
   pgdata:
