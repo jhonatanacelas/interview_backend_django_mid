@@ -1,10 +1,24 @@
 from rest_framework.response import Response
 from rest_framework.request import Request
 from rest_framework.views import APIView
+from rest_framework import status
 
 from interview.inventory.models import Inventory, InventoryLanguage, InventoryTag, InventoryType
 from interview.inventory.schemas import InventoryMetaData
-from interview.inventory.serializers import InventoryLanguageSerializer, InventorySerializer, InventoryTagSerializer, InventoryTypeSerializer
+from interview.inventory.serializers import InventoryLanguageSerializer, InventorySerializer, InventoryTagSerializer, InventoryTypeSerializer, InventoryDateCreatedSerializer, DateSerializer
+
+
+class InventoryAfterDateView(APIView):
+    queryset = Inventory.objects.all()
+
+    def get(self, request, format=None):
+        date_serializer = DateSerializer(data=request.query_params)
+        if date_serializer.is_valid():
+            date = date_serializer.validated_data["date"]
+            inventories = Inventory.objects.filter(created_at__date__gt=date)
+            serializer = InventoryDateCreatedSerializer(inventories, many=True)
+            return Response(serializer.data)
+        return Response(date_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class InventoryListCreateView(APIView):
