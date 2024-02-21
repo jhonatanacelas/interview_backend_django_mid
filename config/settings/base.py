@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'interview.core',
     'interview.inventory',
-    'interview.order'
+    'interview.order',
+    'interview.profiles.apps.ProfilesConfig',
 ]
 
 MIDDLEWARE = [
@@ -132,3 +133,7 @@ STATIC_ROOT = 'interview/static'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+AUTH_USER_MODEL = 'profiles.UserProfile'
+
